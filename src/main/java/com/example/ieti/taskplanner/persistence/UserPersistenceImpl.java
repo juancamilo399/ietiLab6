@@ -4,7 +4,7 @@ import com.example.ieti.taskplanner.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Service
 public class UserPersistenceImpl implements  UserPersistence{
@@ -15,10 +15,11 @@ public class UserPersistenceImpl implements  UserPersistence{
 
     public UserPersistenceImpl() {
         users = new HashMap<>();
-        User user1 = new User("juan","juan@mail.com","1");
-        User user2 = new User("carlos","carlos@mail.com","2");
+        User user1 = new User("juan","juan@mail.com","1","hola");
+        User user2 = new User("carlos","carlos@mail.com","2","hola");
         users.put("1",user1);
         users.put("2",user2);
+
     }
 
     @Override
@@ -40,8 +41,10 @@ public class UserPersistenceImpl implements  UserPersistence{
 
     @Override
     public User update(User user) {
-        users.remove(user.getId());
-        users.put(user.getId(),user);
+        User newUser = getUserById(user.getId());
+        if (user.getEmail()!=null) newUser.setEmail(user.getEmail());
+        if (user.getName()!=null) newUser.setName(user.getName());
+        if (user.getPassword()!=null) newUser.setPassword(user.getPassword());
         return user;
     }
 

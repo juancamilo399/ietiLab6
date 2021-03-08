@@ -22,6 +22,7 @@ public class hellocontroller {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getUsers() {
+
         return new ResponseEntity<>(services.getAll(), HttpStatus.ACCEPTED);
     }
 
